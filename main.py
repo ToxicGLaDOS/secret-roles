@@ -124,15 +124,6 @@ class HelloWorld(object):
         return '{"everyone_ready": false, "role": "unknown", "status": "waiting"}'
 
     @cherrypy.expose
-    def test(self):
-        cherrypy.session['something'] = 'wow'
-        return "<a href=localhost:8080/test1>here</a>"
-
-    @cherrypy.expose
-    def test1(self):
-        return cherrypy.session['something']
-
-    @cherrypy.expose
     def join(self, token=None):
         if token == None:
             return "You need to join using a token. You can generate one <a href=generate>here</a>"
