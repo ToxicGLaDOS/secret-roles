@@ -2,15 +2,16 @@
     <head>
         <script>
             function validateForm(){
-                var players = document.getElementById('num_players').value;
-                players = escape(players);
-                location.href = '/generate?num_players=' + players
+                var roles = document.getElementById('roles').value;
+                roles = encodeURI(roles);
+                location.href = '/generate?roles=' + roles
                 return false;
             }
         </script>
     </head>
     <form name="generate_token_form" action="" onsubmit="return validateForm();">
-        Num players: <input id='num_players' type="number" value="1">
+        Comma separated list of roles (role1,role2,role3...) list duplicates if any:
+        <input id="roles" type="text" value="">
         <input type="submit" value="Submit">
     </form>
 
