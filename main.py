@@ -83,7 +83,7 @@ class HelloWorld(object):
     @cherrypy.expose
     def generate(self, roles=None):
         if roles == None:
-            with open("/home/jeff/projects/secret-roles/generate_form.html", 'r') as f:
+            with open("generate_form.html", 'r') as f:
                 return f.read()
         else:
             roles_list = roles.split(',')
@@ -139,7 +139,7 @@ class HelloWorld(object):
         if token in self.openTokens:
             token_obj = self.openTokens[token]
             if not token_obj.is_token_expired():
-                with open("/home/jeff/projects/secret-roles/join.html", 'r') as f:
+                with open("join.html", 'r') as f:
                     return  f.read()
             else:
                 return "Token expired"
