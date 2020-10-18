@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import cherrypy
 import random
 import string
@@ -6,7 +7,7 @@ import time
 TOKEN_LENGTH = 20
 TOKEN_DURATION = 60 * 1 # 5 minutes
 CHECKIN_DURATION = 60 * 1 # 1 minutes
-HOSTNAME = "localhost:8080"
+HOSTNAME = cherrypy.url()
 VALID_TOKEN_CHARS = string.ascii_letters + string.digits
 
 
