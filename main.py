@@ -138,8 +138,11 @@ class HelloWorld(object):
         else:
             return "Invalid token :("
 conf = {
-        '/': {
-            'tools.sessions.on': True
-        }
+    'global': {
+        'server.socket_host': '0.0.0.0'
+    },
+    '/': {
+        'tools.sessions.on': True,
     }
+}
 cherrypy.quickstart(HelloWorld(), '/', conf)
