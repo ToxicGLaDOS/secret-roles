@@ -10,7 +10,7 @@
             var response_json = await response.json();
             console.log(response_json)
             if (response_json.status != "done" && response_json.status != "waiting"){
-                document.getElementById("status").innerHTML = "ERROR: " + response_json.status;
+                document.getElementById("status").innerHTML = "ERROR: " + response_json.status + " " + response_json.hint;
             }
             else if (response_json.everyone_ready){
                 document.getElementById("status").innerHTML = "Your role is " + response_json.role;
