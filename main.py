@@ -6,7 +6,6 @@ import time
 
 TOKEN_LENGTH = 20
 TOKEN_DURATION = 60 * 60 * 2 # 2 hours
-HOSTNAME = cherrypy.url()
 VALID_TOKEN_CHARS = string.ascii_letters + string.digits
 
 
@@ -74,7 +73,8 @@ class HelloWorld(object):
             token = self.generate_token(TOKEN_LENGTH, roles_list)
             self.openTokens[token.value] = token
             url = f"join?token={token.value}"
-            return f"<a href={url}>{HOSTNAME}/{url}</a>"
+            hostname = cherrypy.request.base
+            return f"<a href={url}>{hostname}/{url}</a>"
 
     @cherrypy.expose
     def join(self, token=None):
