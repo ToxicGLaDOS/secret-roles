@@ -74,7 +74,7 @@ class HelloWorld(object):
             self.openTokens[token.value] = token
             url = f"join?token={token.value}"
             hostname = cherrypy.request.base
-            return f"<a href={url}>{hostname}/{url}</a>"
+            return f"Share this link with the other players. <a href={url}>{hostname}/{url}</a>"
 
     @cherrypy.expose
     def join(self, token=None):
