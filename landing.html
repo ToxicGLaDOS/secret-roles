@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        async function get_role() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const token = urlParams.get('token');
+
+            var response = await fetch('join?token=' + token);
+            var response_json = await response.json();
+
+            document.getElementById("message").innerHTML = response_json.message
+        }
+    </script>
+</head>
+<body>
+    <input type="button" value="Click to receive your role" onclick="get_role()"/>
+    <p id="message" ></p>
+</body>
+</html>

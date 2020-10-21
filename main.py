@@ -72,20 +72,25 @@ class HelloWorld(object):
             print(roles_list)
             token = self.generate_token(TOKEN_LENGTH, roles_list)
             self.openTokens[token.value] = token
-            url = f"join?token={token.value}"
+            url = f"landing?token={token.value}"
             hostname = cherrypy.request.base
-            return f"Share this link with the other players. <a href={url}>{hostname}/{url}</a>"
+            return f"Share this link with the other players. It work for 2 hours. <a href={url}>{hostname}/{url}</a>"
+
+    @cherrypy.expose
+    def landing(self, token=None):
+        with open("landing.html") as f:
+            return f.read()
 
     @cherrypy.expose
     def join(self, token=None):
         if token is None:
-            return "token not found. You have to connect to /join?token=yourTokenHere. Go to /generate to create one."
+            return '{"message": "token not found. You have to connect to /join?token=yourTokenHere. Go to /generate to create one."}'
         if token not in self.openTokens:
-            return "token invalid. Maybe you missed some of the token when copying?"
+            return '{"message": "token invalid. Maybe you missed some of the token when copying?"}'
         token_obj = self.openTokens[token]
 
         if token_obj.is_token_expired():
-            return "token expired :("
+            return '{"message":"token expired :("}'
 
         session_id = cherrypy.session.get('session_id')
         # If this user doesn't have a session_id yet then give them one
@@ -99,9 +104,9 @@ class HelloWorld(object):
         # Maybe this user quit their session and has opened a new one
         # If so, too bad :(
         if role is None:
-            return "all roles taken. Perhaps you closed your browser and tried to reopen a link? (you can only see your role again if you have the same browser session open)"
+            return '{"message":"all roles taken. Perhaps you closed your browser and tried to reopen a link? (you can only see your role again if you have the same browser session open)"}'
         else:
-            return f"Your role is {role}."
+            return f'{{"message": "Your role is {role}."}}'
 
 conf = {
     'global': {
