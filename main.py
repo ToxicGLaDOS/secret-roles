@@ -8,7 +8,6 @@ TOKEN_LENGTH = 20
 TOKEN_DURATION = 60 * 60 * 2 # 2 hours
 VALID_TOKEN_CHARS = string.ascii_letters + string.digits
 
-
 class Token(object):
     def __init__(self, value: str, roles: list):
         self.value = value
@@ -44,7 +43,7 @@ class HelloWorld(object):
 
     @cherrypy.expose
     def index(self):
-        return '<script>window.location.replace("/generate");</script>'
+        return f'<script>window.location.replace("{cherrypy.url("/generate")}");</script>'
 
     def generate_session_id(self):
         session_str = ''.join(random.choices(VALID_TOKEN_CHARS, k=20))
@@ -120,4 +119,4 @@ instance = HelloWorld()
 # Every minute
 cleanup = cherrypy.process.plugins.BackgroundTask(60, instance.cleanup_expired_tokens)
 cleanup.start()
-cherrypy.quickstart(instance, '/', conf)
+cherrypy.quickstart(instance, '/secret-roles', conf)
