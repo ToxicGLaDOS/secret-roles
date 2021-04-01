@@ -1,0 +1,18 @@
+---
+kind: pipeline
+type: kubernetes
+name: build_image
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+- name: publish
+  image: plugins/docker
+  settings:
+    repo: toxicglados/cherrypy-secret-roles
+    tags: latest
+    username: toxicglados
+    password:
+      from_secret: docker_password
