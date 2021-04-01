@@ -43,7 +43,7 @@ class HelloWorld(object):
 
     @cherrypy.expose
     def index(self):
-        return f'<script>window.location.replace("{cherrypy.url("/generate")}");</script>'
+        return f'<script>window.location.replace("{cherrypy.url("/generate", relative=True)}");</script>'
 
     def generate_session_id(self):
         session_str = ''.join(random.choices(VALID_TOKEN_CHARS, k=20))
