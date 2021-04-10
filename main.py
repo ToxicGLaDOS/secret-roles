@@ -72,7 +72,7 @@ class HelloWorld(object):
             token = self.generate_token(TOKEN_LENGTH, roles_list)
             self.openTokens[token.value] = token
             url = f"landing?token={token.value}"
-            hostname = cherrypy.url()
+            hostname = cherrypy.request.base + cherrypy.request.script_name
             return f"Share this link with the other players. It will work for 2 hours. <a href={url}>{hostname}/{url}</a>"
 
     @cherrypy.expose
@@ -119,4 +119,4 @@ instance = HelloWorld()
 # Every minute
 cleanup = cherrypy.process.plugins.BackgroundTask(60, instance.cleanup_expired_tokens)
 cleanup.start()
-cherrypy.quickstart(instance, '/secret-roles', conf)
+cherrypy.quickstart(instance, script_name='/secret-roles', config=conf)
