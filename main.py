@@ -71,9 +71,8 @@ class HelloWorld(object):
             print(roles_list)
             token = self.generate_token(TOKEN_LENGTH, roles_list)
             self.openTokens[token.value] = token
-            url = f"landing?token={token.value}"
-            hostname = cherrypy.request.base + cherrypy.request.script_name
-            return f"Share this link with the other players. It will work for 2 hours. <a href={url}>{hostname}/{url}</a>"
+            url = f"{cherrypy.request.base + cherrypy.request.script_name}/landing?token={token.value}"
+            return f"Share this link with the other players. It will work for 2 hours. <a href={url}>{url}</a>"
 
     @cherrypy.expose
     def landing(self, token=None):
